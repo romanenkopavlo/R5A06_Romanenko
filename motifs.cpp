@@ -59,9 +59,32 @@ void degrade()
 
 void drapeau()
 {
-	//ImagePNG drapeau(100,150);
- 	
-	//drapeau.save("drapeau.png");
+    ImagePNG drapeau(300, 200);
+
+    for (int y = 0; y < 200; y++)
+    {
+        for (int x = 0; x < 300; x++)
+        {
+            if (x < 300 / 3) {
+				drapeau(x, y, 0) = 0;
+				drapeau(x, y, 1) = 0;
+                drapeau(x, y, 2) = 255;
+			}
+			
+            else if (x < 2 * 300 / 3) {
+				drapeau(x, y, 0) = 255;
+				drapeau(x, y, 1) = 255;
+				drapeau(x, y, 2) = 255;
+			}
+            else {
+				drapeau(x, y, 0) = 255;
+				drapeau(x, y, 1) = 0;
+				drapeau(x, y, 2) = 0;
+			}
+        }
+    }
+
+	drapeau.save("drapeau.png");
 }
 
 void transparence()
