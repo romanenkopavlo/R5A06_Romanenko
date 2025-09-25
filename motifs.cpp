@@ -89,16 +89,74 @@ void drapeau()
 
 void transparence()
 {
-	//ImagePNG transparence(100,150);
+	ImagePNG transparence(300, 200);
  	
-	//transparence.save("transparence.png");
+	for (int y = 0; y < 200; y++)
+    {
+        for (int x = 0; x < 300; x++)
+        {
+            if (x < 300 / 3) {
+				transparence(x, y, 0) = 0;
+				transparence(x, y, 1) = 0;
+                transparence(x, y, 2) = 255;
+			}
+			
+            else if (x < 2 * 300 / 3) {
+				transparence(x, y, 0) = 255;
+				transparence(x, y, 1) = 255;
+				transparence(x, y, 2) = 255;
+			}
+            else {
+				transparence(x, y, 0) = 255;
+				transparence(x, y, 1) = 0;
+				transparence(x, y, 2) = 0;
+			}
+
+			transparence(x, y, 3) = (x * 255) / 300;
+        }
+    }
+
+	transparence.save("transparence.png");
 }
 
 void lineaire()
 {
-	//ImagePNG drapeau(100,150);
- 	
-	//drapeau.save("drapeau.png");
+    int width = 300;
+    int height = 200;
+
+    ImagePNG drapeau(width, height);
+
+    unsigned char imageLinear[300 * 200 * 3];
+
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            int idx = (y * width + x) * 3;
+
+            if (x < width / 3) {
+                imageLinear[idx] = 0;
+                imageLinear[idx + 1] = 0;
+                imageLinear[idx + 2] = 255;
+            }
+            else if (x < 2 * width / 3) {
+                imageLinear[idx] = 255;
+                imageLinear[idx + 1] = 255;
+                imageLinear[idx + 2] = 255;
+            }
+            else {
+                imageLinear[idx] = 255;
+                imageLinear[idx + 1] = 0;
+                imageLinear[idx + 2] = 0;
+            }
+
+            drapeau(x, y, 0) = imageLinear[idx];
+            drapeau(x, y, 1) = imageLinear[idx + 1];
+            drapeau(x, y, 2) = imageLinear[idx + 2];
+        }
+    }
+
+    drapeau.save("drapeau-lineaire.png");
 }
 
 int main(int argc, char** argv) {
